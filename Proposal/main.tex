@@ -1,0 +1,144 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{setspace}
+\setstretch{1.15}
+
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=1.5em}
+\setlength{\parskip}{0.75em}
+\setlength{\parindent}{0pt}
+
+% Section styling
+\titleformat{\section}{\normalfont\fontsize{16}{19}\bfseries}{}{0em}{}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%    TITLE
+%----------------------------------------------------------------------------------------
+\begin{center}
+    {\fontsize{36}{44}\selectfont\bfseries\textcolor{blue}{ScholarAI}}\\[0.2em]
+\end{center}
+
+\vspace{2em}
+
+%----------------------------------------------------------------------------------------
+%    INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\section*{Introduction}
+
+\justifying
+Researchers still rely on a patchwork of single-purpose tools at every stage of a study.
+
+Before any actual research begins, scholars are overwhelmed by the need to sift through dozens of papers using separate tools — search engines to find them, PDF readers to view them, and note apps to make sense of them.
+
+Identifying key sections like \textit{methods} or \textit{conclusions} is slow and inconsistent, while spotting knowledge gaps or unexplored angles often depends on personal experience or guesswork. As a result, valuable insights are missed, research directions remain unclear, and early-stage decisions become inefficient and error-prone.
+
+Even while skimming through papers, researchers often need to switch to separate LLM chatbots to understand difficult parts. During writing, they must leave their LaTeX editor to chase missing citations, reformat references, and manually check style rules. The full potential of LLM chatbots and AI code editors remains underutilized in the research workflow.
+
+\textbf{ScholarAI} attacks the root of this friction: the lack of one continuous, context-aware workspace.
+
+It will:
+\begin{itemize}
+  \item Automate literature discovery, summarization, gap analysis with topic suggestions, and contextual Q\&A chat assistance.
+  \item Embed an AI-augmented LaTeX editor that offers inline citation suggestions, real-time style review, and academic writing support.
+\end{itemize}
+
+By weaving these capabilities into a single secure platform, we give every researcher — from graduate student to experienced scholar — the power to move smoothly from \textbf{idea} to \textbf{insight} to \textbf{publication} without leaving their browser.
+
+%----------------------------------------------------------------------------------------
+\vspace{1.2em}
+\section*{Scope}
+
+\justifying
+The scope of ScholarAI is focused on academic stakeholders who create, consume, and analyze scholarly content. Within the platform, authenticated researchers can:
+
+\begin{itemize}
+    \item Discover and import papers from open databases (Semantic Scholar, CrossRef, arXiv).
+    \item Generate AI summaries, gap analyses, and topic suggestions.
+    \item Contextual chat: highlight any passage to ask the AI assistant for an explanation grounded in the paper’s content. 
+    \item     Write papers in a live‑preview \LaTeX{} workspace with inline AI assistance.
+    \item Run a pre-submission check: verify every reference is cited, flag formatting issues, and suggest final improvements before publication .
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+\vspace{1.2em}
+\subsection*{Users and Their Roles}
+
+\noindent\textbf{Anonymous user} \\
+Anonymous users have limited access to the platform and can:
+\begin{itemize}[noitemsep, leftmargin=*]
+    \item Browse the platform and view basic information.
+    \item Register to become a registered user and access all features.
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{Registered user (Researcher)} \\
+Registered users can access the full functionality of ScholarAI, designed to assist in the entire research workflow. Their capabilities include:
+\begin{itemize}[noitemsep, leftmargin=*]
+    \item Performing advanced paper searches, imports, and annotations.
+    \item Creating research projects and writing papers in the integrated \LaTeX{} editor.
+    \item Collaborating with peers and sharing project workspaces.
+    \item Receiving real-time notifications (citation alerts, task reminders).
+    \item Tracking personal reading progress and project-level impact.
+\end{itemize}
+
+\vspace{1em}
+\noindent\textbf{Admin user (Individual or Institutional)} \\
+Admin users have all the capabilities of a registered researcher, along with administrative control. Their additional responsibilities include:
+\begin{itemize}[noitemsep, leftmargin=*]
+    \item Managing user accounts and roles (disable, remove, or promote users).
+    \item Configuring global taxonomies, AI usage quotas, and institutional licenses.
+    \item Monitoring system health and moderating reported content.
+\end{itemize}
+
+
+
+
+%----------------------------------------------------------------------------------------
+\vspace{1.2em}
+\section*{Use Cases of the System}
+
+\begin{itemize}
+    \item \textbf{Registration / Login:} Visitor provides credentials or social‑auth; system issues JWT and refresh token (\emph{UC‑G01}).
+    \item \textbf{Paper Web Search \& Retrieval:} Researcher queries external APIs; system imports papers into Project Library (\emph{UC‑PR01}).
+    \item \textbf{Paper Extraction, Summarisation, Analysis:} Researcher selects papers; summariser agent creates key‑point JSON (\emph{UC‑PR03}).
+    \item \textbf{Gap Analysis \& Topic Suggestion:} Gap‑analysis agent recommends promising research directions (\emph{UC‑PR05}).
+    \item \textbf{AI‑Powered \LaTeX{} Editor:} Researcher writes with live AI suggestions, citation auto‑completion, and formatting enforcement (\emph{UC‑OR02, UC‑OR03, UC‑OR04}).
+    \item \textbf{Impact Tracking Dashboard:} Post‑publication metrics are visualised; daily citation‑alert notifications are issued (\emph{UC‑PO01, UC‑PO02}).
+    \item \textbf{Download \& Share Metrics Report:} Researcher exports PDF/CSV summary for a paper or project (\emph{UC‑PO03}).
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+\vspace{1.2em}
+\section*{Technology}
+
+\begin{itemize}
+    \item \textbf{Frontend:} Next.js (React 18), Tailwind CSS.
+    \item \textbf{Backend Core:} Spring Boot 3 (Java 21).
+    \item \textbf{AI Agents:} FastAPI (Python 3.11).
+    \item \textbf{Messaging:} RabbitMQ for event‑driven microservices.
+    \item \textbf{Deployment:} Docker-based containers deployed on Netlify (frontend) and Render/Fly.io (backend); CI/CD via GitHub Actions.
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+\vspace{1.2em}
+\section*{Build Tools}
+
+\begin{itemize}
+    \item Maven
+\end{itemize}
+
+%----------------------------------------------------------------------------------------
+\vspace{1.2em}
+\section*{Database}
+
+\justifying
+Primary store: PostgreSQL. Caching: Redis.
+
+\end{document}
