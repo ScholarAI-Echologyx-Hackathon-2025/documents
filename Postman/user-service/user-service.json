@@ -1,0 +1,587 @@
+{
+    "info": {
+        "name": "ScholarAI User Service",
+        "description": "Complete API collection for ScholarAI User Service with API Gateway routing",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "localhost:8989",
+            "type": "string",
+            "description": "API Gateway base URL (change for different environments)"
+        },
+        {
+            "key": "accessToken",
+            "value": "",
+            "type": "string",
+            "description": "JWT Access Token for authenticated requests"
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{accessToken}}",
+                "type": "string"
+            }
+        ]
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "User registration, login, and authentication management",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"securePassword123\",\n  \"role\": \"USER\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/register",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "register"
+                            ]
+                        },
+                        "description": "Register a new user account with email and password"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Login User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"securePassword123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/login",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "login"
+                            ]
+                        },
+                        "description": "Authenticate user and get JWT tokens"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Refresh Token",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/refresh",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "refresh"
+                            ]
+                        },
+                        "description": "Refresh the access token using the refresh token stored in cookies"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Logout User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/logout",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "logout"
+                            ]
+                        },
+                        "description": "Logout user and invalidate tokens"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Forgot Password",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/forgot-password?email=user@example.com",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "forgot-password"
+                            ],
+                            "query": [
+                                {
+                                    "key": "email",
+                                    "value": "user@example.com"
+                                }
+                            ]
+                        },
+                        "description": "Generate a password reset code for the given email"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Reset Password",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/reset-password?email=user@example.com&code=123456&newPassword=newSecurePassword123",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "reset-password"
+                            ],
+                            "query": [
+                                {
+                                    "key": "email",
+                                    "value": "user@example.com"
+                                },
+                                {
+                                    "key": "code",
+                                    "value": "123456"
+                                },
+                                {
+                                    "key": "newPassword",
+                                    "value": "newSecurePassword123"
+                                }
+                            ]
+                        },
+                        "description": "Reset user password using the reset code and new password"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Confirm Email",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"user@example.com\",\n  \"otp\": \"123456\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/confirm-email",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "confirm-email"
+                            ]
+                        },
+                        "description": "Confirm user email using the OTP code sent during registration"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Resend Email Verification",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"user@example.com\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/resend-email-verification",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "resend-email-verification"
+                            ]
+                        },
+                        "description": "Resend email verification OTP to the user's email address"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Check Email Status",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/check-email-status?email=user@example.com",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "check-email-status"
+                            ],
+                            "query": [
+                                {
+                                    "key": "email",
+                                    "value": "user@example.com"
+                                }
+                            ]
+                        },
+                        "description": "Check if a user exists and whether their email is confirmed"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Check Email Availability",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/check-email-availability?email=newuser@example.com",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "check-email-availability"
+                            ],
+                            "query": [
+                                {
+                                    "key": "email",
+                                    "value": "newuser@example.com"
+                                }
+                            ]
+                        },
+                        "description": "Check if an email address is available for registration"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Social Authentication",
+            "description": "OAuth authentication with Google and GitHub",
+            "item": [
+                {
+                    "name": "Google OAuth Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"idToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjEyMzQ1Njc4OTAiLCJ0eXAiOiJKV1QifQ...\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/social/google-login",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "social",
+                                "google-login"
+                            ]
+                        },
+                        "description": "Authenticate user using Google OAuth ID token"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GitHub OAuth Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"code\": \"abc123def456ghi789\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/auth/social/github-login",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "auth",
+                                "social",
+                                "github-login"
+                            ]
+                        },
+                        "description": "Authenticate user using GitHub OAuth authorization code"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "User Profile",
+            "description": "User profile management and avatar operations",
+            "item": [
+                {
+                    "name": "Get User Profile",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/profile",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "profile"
+                            ]
+                        },
+                        "description": "Retrieve the current user's profile information"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update User Profile",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"fullName\": \"John Smith\",\n  \"bio\": \"Updated bio information\",\n  \"dateOfBirth\": \"1990-01-01T00:00:00Z\",\n  \"affiliation\": \"New Company\",\n  \"positionTitle\": \"Lead Engineer\",\n  \"researchInterests\": \"AI, ML, Deep Learning\",\n  \"phoneNumber\": \"+1-555-123-4567\",\n  \"googleScholarUrl\": \"https://scholar.google.com/citations?user=example\",\n  \"personalWebsiteUrl\": \"https://example.com\",\n  \"orcidId\": \"0000-0001-2345-6789\",\n  \"linkedInUrl\": \"https://linkedin.com/in/example\",\n  \"twitterUrl\": \"https://twitter.com/example\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/profile",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "profile"
+                            ]
+                        },
+                        "description": "Update the current user's profile information"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Upload Avatar",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "avatar",
+                                    "type": "file",
+                                    "src": []
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/profile/avatar",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "profile",
+                                "avatar"
+                            ]
+                        },
+                        "description": "Upload a new avatar image for the current user"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Avatar",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{accessToken}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/user-service/api/v1/profile/avatar",
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "path": [
+                                "user-service",
+                                "api",
+                                "v1",
+                                "profile",
+                                "avatar"
+                            ]
+                        },
+                        "description": "Remove the current user's avatar image"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "// Auto-set Authorization header for requests that need it",
+                    "if (pm.request.headers.has('Authorization')) {",
+                    "    pm.request.headers.get('Authorization').value = 'Bearer ' + pm.collectionVariables.get('accessToken');",
+                    "}"
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "// Auto-extract access token from login responses",
+                    "if (pm.response.code === 200 && pm.request.url.path.includes('/login')) {",
+                    "    const response = pm.response.json();",
+                    "    if (response.data && response.data.accessToken) {",
+                    "        pm.collectionVariables.set('accessToken', response.data.accessToken);",
+                    "        console.log('Access token automatically set from login response');",
+                    "    }",
+                    "}",
+                    "",
+                    "// Test response structure",
+                    "pm.test('Response has correct structure', function () {",
+                    "    const response = pm.response.json();",
+                    "    pm.expect(response).to.have.property('statusCode');",
+                    "    pm.expect(response).to.have.property('message');",
+                    "    pm.expect(response).to.have.property('success');",
+                    "    pm.expect(response).to.have.property('data');",
+                    "});",
+                    "",
+                    "// Test for successful responses",
+                    "if (pm.response.code === 200 || pm.response.code === 201) {",
+                    "    pm.test('Request was successful', function () {",
+                    "        const response = pm.response.json();",
+                    "        pm.expect(response.success).to.be.true;",
+                    "    });",
+                    "}",
+                    "",
+                    "// Test for error responses",
+                    "if (pm.response.code >= 400) {",
+                    "    pm.test('Request failed as expected', function () {",
+                    "        const response = pm.response.json();",
+                    "        pm.expect(response.success).to.be.false;",
+                    "    });",
+                    "}"
+                ]
+            }
+        }
+    ]
+}
